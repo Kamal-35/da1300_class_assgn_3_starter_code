@@ -16,7 +16,7 @@ def printer_queue_order(pages: List[int]) -> List[int]:
     Returns:
         List of document numbers in the order they finish printing.
     """
-    pass
+    return sorted(list(range(0,len(pages))), key=lambda indexx: pages[indexx])
 
 
 if __name__ == "__main__":
