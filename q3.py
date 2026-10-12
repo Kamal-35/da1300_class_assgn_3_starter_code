@@ -8,25 +8,29 @@ class TreeNode:
         self.left = left
         self.right = right
 
-    def soan(self):
+    def ur(self):
         if self.left==None and self.right!=None:
-            return self.salary + self.right.soan()
+            r=self.right.ur()
+            if self.salary==(self.salary+r[0])//(1+r[1]):
+                return (self.salary + r[0],1 + r[1],1+r[2])
+            else:
+                return (self.salary + r[0],1 + r[1],r[2])
         elif self.left!=None and self.right==None:
-            return self.salary + self.left.soan()
+            l=self.left.ur()
+            if self.salary==(self.salary+l[0])//(1+l[1]):
+                return (self.salary + l[0],1 + l[1],1+l[2])
+            else:
+                return (self.salary + l[0],1 + l[1],l[2])
         elif self.left==None and self.right==None:
-            return self.salary
+            return (self.salary,1,1)
         else:
-            return self.salary+self.left.soan()+self.right.soan()
+            r=self.right.ur()
+            l=self.left.ur()
+            if self.salary==(self.salary+l[0]+r[0])//(1+l[1]+r[1]):
+                return (self.salary+l[0]+r[0],1+l[1]+r[1],1+l[2]+r[2])
+            else:
+                return (self.salary+l[0]+r[0],1+l[1]+r[1],l[2]+r[2])
 
-    def nu(self):
-        if self.left==None and self.right!=None:
-            return 1 + self.right.nu()
-        elif self.left!=None and self.right==None:
-            return 1 + self.left.nu()
-        elif self.left==None and self.right==None:
-            return 1
-        else:
-            return 1+self.left.nu()+self.right.nu()
 
     def averager(self):
         return self.soan()//self.nu()
@@ -46,18 +50,10 @@ def count_fair_managers(root: Optional[TreeNode]) -> int:
     Returns:
         Number of fair managers in the tree.
     """
-    if root.salary==root.averager():
-        rc=1
+    if root in [None,[]]:
+        return 0
     else:
-        rc=0
-    if root.left==None and root.right!=None:
-        return rc + count_fair_managers(root.right)
-    elif root.left!=None and root.right==None:
-        return rc+count_fair_managers(root.left)
-    elif root.left==None and root.right==None:
-        return rc
-    else:
-        return rc+count_fair_managers(root.left)+count_fair_managers(root.right)
+        return root.ur()[2]
 
 
 if __name__ == "__main__":

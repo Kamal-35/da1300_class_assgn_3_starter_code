@@ -18,8 +18,8 @@ def surviving_ships(ships: List[int]) -> List[int]:
     """
     #i borrowed idea of using stacks(underlying storage is list ofcourse) from akshith
     r,l=[],[]
-    flag=None
     for i in ships:
+        flag=None
         if i>0:
             r.append(i)
         else:
@@ -42,3 +42,4 @@ if __name__ == "__main__":
     # Example sanity checks (see test.py for the real test cases)
     print(surviving_ships([6, 3, -5]))  # expected: [6]
     print(surviving_ships([8, -8]))     # expected: []
+    print(surviving_ships([3, 2, 1, -1, -2, -3, 7, -7, -1]))
